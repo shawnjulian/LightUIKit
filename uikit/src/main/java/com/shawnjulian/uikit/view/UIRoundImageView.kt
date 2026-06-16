@@ -15,6 +15,7 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.TypedValue
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.graphics.createBitmap
 import com.shawnjulian.uikit.R
 import kotlin.math.max
 import kotlin.math.min
@@ -94,6 +95,18 @@ class UIRoundImageView @JvmOverloads constructor(
 
 
     init {
+
+        mMatrix = Matrix()
+
+        mBitmapPaint = Paint().apply {
+            isAntiAlias = true
+        }
+
+        mBorderPaint = Paint().apply {
+            isAntiAlias = true
+            style = Paint.Style.STROKE
+        }
+
         val a = context.obtainStyledAttributes(attrs, R.styleable.RoundImageView, defStyleAttr, 0)
 
         type = a.getInt(
@@ -113,19 +126,6 @@ class UIRoundImageView @JvmOverloads constructor(
             a.getDimension(R.styleable.RoundImageView_rightBottom_corner_radius, 0f)
 
         a.recycle()
-    }
-
-    init {
-        mMatrix = Matrix()
-
-        mBitmapPaint = Paint().apply {
-            isAntiAlias = true
-        }
-
-        mBorderPaint = Paint().apply {
-            isAntiAlias = true
-            style = Paint.Style.STROKE
-        }
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -222,7 +222,7 @@ class UIRoundImageView @JvmOverloads constructor(
                 Path.Direction.CW
             )
         } else {
-            mRoundPath?.addRoundRect(
+            mRoundPath.addRoundRect(
                 mRoundRect,
                 floatArrayOf(
                     mLeftTopCornerRadius, mLeftTopCornerRadius,
@@ -289,7 +289,7 @@ class UIRoundImageView @JvmOverloads constructor(
         }
         val w = drawable.intrinsicWidth
         val h = drawable.intrinsicHeight
-        val bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
+        val bitmap = createBitmap(w, h)
         val canvas = Canvas(bitmap)
         drawable.setBounds(0, 0, w, h)
         drawable.draw(canvas)
