@@ -22,7 +22,7 @@ import kotlin.math.min
 
 /**
  * @ClassName UIRoundImageView
- * @Author shuaijialin
+ * @Author ShawnJulian
  * @Date 2026/6/16
  * @Description Circular and rounded corner images
  */
@@ -196,7 +196,6 @@ class UIRoundImageView @JvmOverloads constructor(
 
             else -> {
                 canvas.drawOval(mRoundRect, mBitmapPaint)
-
                 canvas.drawOval(mRoundRect, mBorderPaint)
             }
         }
@@ -267,6 +266,7 @@ class UIRoundImageView @JvmOverloads constructor(
                 mMatrix?.setTranslate(-dx, -dy)
             }
         }
+
         // Transformation matrix of the shader, mainly used for enlargement or reduction
         mMatrix?.preScale(scale, scale)
 
