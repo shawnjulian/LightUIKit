@@ -4,18 +4,15 @@ package com.shawnjulian.uikit.view.wheel.adapter
 /**
  * Numeric Wheel adapter.
  */
-class NumericWheelAdapter
-/**
- * Default constructor
- */ @JvmOverloads constructor(// Values
+class NumericWheelAdapter @JvmOverloads constructor(// Values
     private val minValue: Int = DEFAULT_MIN_VALUE, private val maxValue: Int = DEFAULT_MAX_VALUE
 ) : WheelAdapter<Any?> {
+
     /**
      * Constructor
      * @param minValue the wheel min value
      * @param maxValue the wheel max value
      */
-
     override fun getItem(index: Int): Any {
         if (index >= 0 && index < getItemsCount()) {
             val value = minValue + index

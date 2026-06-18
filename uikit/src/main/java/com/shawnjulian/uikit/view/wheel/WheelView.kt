@@ -10,11 +10,11 @@ import android.view.GestureDetector
 import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
-import android.widget.AdapterView
 import androidx.core.content.ContextCompat
 import com.shawnjulian.uikit.R
 import com.shawnjulian.uikit.util.DisplayUtils
 import com.shawnjulian.uikit.view.wheel.adapter.WheelAdapter
+import com.shawnjulian.uikit.view.wheel.listener.OnItemSelectedListener
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.ScheduledFuture
@@ -41,7 +41,7 @@ open class WheelView @JvmOverloads constructor(context: Context, attrs: Attribut
 
     var handler: Handler? = null
     private var gestureDetector: GestureDetector? = null
-    var onItemSelectedListener: AdapterView.OnItemSelectedListener? = null
+    var onItemSelectedListener: OnItemSelectedListener? = null
 
     // Timer mTimer;
     var mExecutor: ScheduledExecutorService = Executors.newSingleThreadScheduledExecutor()
@@ -244,7 +244,7 @@ open class WheelView @JvmOverloads constructor(context: Context, attrs: Attribut
         )
     }
 
-    protected fun scrollBy(velocityY: Float) {
+    fun scrollBy(velocityY: Float) {
         cancelFuture()
 
         mFuture = mExecutor.scheduleWithFixedDelay(
@@ -279,7 +279,7 @@ open class WheelView @JvmOverloads constructor(context: Context, attrs: Attribut
         }
     }
 
-    fun setOnItemSelectedListener(onItemSelectedListener: AdapterView.OnItemSelectedListener?) {
+    fun setOnItemSelectedListener(onItemSelectedListener: OnItemSelectedListener?) {
         this.onItemSelectedListener = onItemSelectedListener
     }
 
@@ -301,7 +301,7 @@ open class WheelView @JvmOverloads constructor(context: Context, attrs: Attribut
             invalidate()
         }
 
-    protected fun onItemSelected() {
+    fun onItemSelected() {
         if (onItemSelectedListener != null) {
             postDelayed(OnItemSelectedRunnable(this), 200L)
         }
